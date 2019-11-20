@@ -18,6 +18,10 @@ public class Node {
         return arrayOfPath;
     }
 
+    public Path getArrayOfPath(int i) {
+        return arrayOfPath.get(i);
+    }
+
     public void setArrayOfPath(ArrayList<Path> arrayOfPath) {
         this.arrayOfPath = arrayOfPath;
     }
