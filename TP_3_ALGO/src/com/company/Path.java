@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Path {
     private Node begin,end;
     private int weight;
+    private boolean variableIsUsed;
 
     public Path(Node begin, Node end, int weight) {
         this.begin = begin;
         this.end = end;
         this.weight = weight;
+        this.variableIsUsed =false ;
     }
 
     public void display(){
@@ -19,6 +21,19 @@ public class Path {
         System.out.println("|");
         System.out.println(this.getEnd().getLabel());
     }
+
+    public boolean isUsed(){
+        return this.variableIsUsed;
+    }
+
+    public boolean isVariableIsUsed() {
+        return variableIsUsed;
+    }
+
+    public void setVariableIsUsed(boolean variableIsUsed) {
+        this.variableIsUsed = variableIsUsed;
+    }
+
 
     public Node getBegin() {
         return begin;
