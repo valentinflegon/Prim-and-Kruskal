@@ -15,15 +15,17 @@ public class Main {
         graph.addNode(node3);
         graph.addNode(node4);
 
-        Path path1 = new Path(node1,node2,10);
+        Path path1 = new Path(node1,node2,12);
         Path path2 = new Path(node1,node3,1);
         Path path = new Path(node2,node4,4);
         Path path3 = new Path(node3,node2,2);
+        Path path4 = new Path(node1,node4,1);
 
         graph.addPath(path1);
         graph.addPath(path2);
         graph.addPath(path);
         graph.addPath(path3);
+        graph.addPath(path4);
 
 
 
@@ -34,11 +36,11 @@ public class Main {
         System.out.println("Poids des chemins = ");
         System.out.println(graph.getSommePath());
 
-
+ */
        Prim prim = new Prim();
        System.out.println("Poids des chemins du graph "+prim.prim(graph));
- */
-       graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
+
+      // graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
     }
 
 }
