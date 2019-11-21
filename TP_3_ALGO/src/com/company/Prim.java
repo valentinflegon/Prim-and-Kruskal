@@ -15,42 +15,35 @@ public class Prim {
      *
      * @param graph
      */
-    public int prim(Graph graph){
+      public int prim(Graph graph){
 
         //partir d'un noeud
         //ici le premier noeud rentré
         Node initNode = graph.arrayListOfNode.get(0);
         graph.arrayListOfUseNode.add(initNode);
-        Path goodPath;
-        do{
+        Path goodPath= initNode.getArrayOfPath().get(0);
+        while (graph.arrayListOfNode.size() != graph.arrayListOfUseNode.size()){
         //    System.out.println("nombre de noeud : "+graph.arrayListOfNode.size());
           //  System.out.println("nombre de noeud utilisé :"+graph.arrayListOfUseNode.size());
 
+            System.out.println("nombre de noeud rentré :"+graph.arrayListOfNode.size());
+            System.out.println("nombre de noeud utilisé :"+ graph.arrayListOfUseNode.size());
 
+        //    for (int i=0;i <= graph.arrayListOfUseNode.size()+1;i++){
             goodPath = findBestPath(graph.arrayListOfUseNode);
             System.out.print(goodPath.getBegin().getLabel() + " -");
             System.out.print(goodPath.getWeight()+ "- ");
             System.out.println(goodPath.getEnd().getLabel());
+
+           // }
             graph.arrayListOfUseNode.add(goodPath.getEnd());
-
-            /* for (int i=0;i <graph.arrayListOfUseNode.size();i++){
-                System.out.println(graph.arrayListOfUseNode.get(i).getLabel());
-            }*/
-
-
-    /*     for (int i=0;i <= graph.arrayListOfUseNode.size()+1;i++){
-                goodPath = findBestPath(graph.arrayListOfUseNode);
-                graph.arrayListOfUseNode.add(goodPath.getEnd());
-                System.out.println(graph.arrayListOfUseNode.get(1).getLabel());
-            }
-*/
 
             //on fait ca tant que tout les nodes ne sont pas utilisé
         // cad il faut qu'il y ait autant de node utilisé que de Node rentré
-        }while (graph.arrayListOfNode.size() != graph.arrayListOfUseNode.size());
+        }
          return getSommePath();
-    }
-
+    }    
+    
     /***
      *
      * @param arrayOfNode
