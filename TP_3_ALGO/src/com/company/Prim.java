@@ -1,41 +1,62 @@
 package com.company;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.ArrayList;
 
 public class Prim {
+    private int sommePath;
 
     public Prim() {
+        this.sommePath = 0;
     }
 
-// verifier si le graph est connexe
-
-    public void prim(Graph graph){
+    /**
+     *
+     * @param graph
+     */
+    public int prim(Graph graph){
 
         //partir d'un noeud
         //ici le premier noeud rentré
         Node initNode = graph.arrayListOfNode.get(0);
         graph.arrayListOfUseNode.add(initNode);
-
+        Path goodPath;
         do{
-            for (int i=0;i<graph.arrayListOfUseNode.size();i++){
-                Path goodPath = findBestPath(graph.arrayListOfUseNode);
-                graph.arrayListOfUseNode.add(goodPath.getEnd());
-            }
+        //    System.out.println("nombre de noeud : "+graph.arrayListOfNode.size());
+          //  System.out.println("nombre de noeud utilisé :"+graph.arrayListOfUseNode.size());
 
-        //on fait ca tant que tout les nodes ne sont pas utilisé
+
+            goodPath = findBestPath(graph.arrayListOfUseNode);
+            System.out.print(goodPath.getBegin().getLabel() + " -");
+            System.out.print(goodPath.getWeight()+ "- ");
+            System.out.println(goodPath.getEnd().getLabel());
+            graph.arrayListOfUseNode.add(goodPath.getEnd());
+
+            /* for (int i=0;i <graph.arrayListOfUseNode.size();i++){
+                System.out.println(graph.arrayListOfUseNode.get(i).getLabel());
+            }*/
+
+
+    /*     for (int i=0;i <= graph.arrayListOfUseNode.size()+1;i++){
+                goodPath = findBestPath(graph.arrayListOfUseNode);
+                graph.arrayListOfUseNode.add(goodPath.getEnd());
+                System.out.println(graph.arrayListOfUseNode.get(1).getLabel());
+            }
+*/
+
+            //on fait ca tant que tout les nodes ne sont pas utilisé
         // cad il faut qu'il y ait autant de node utilisé que de Node rentré
         }while (graph.arrayListOfNode.size() != graph.arrayListOfUseNode.size());
+         return getSommePath();
     }
 
-
-    // il faudra calculer le poids
-
-
-
-    //choisir son path de poid le plus faible
-    // pas utiliser la transition deja prise
+    /***
+     *
+     * @param arrayOfNode
+     * @return
+     */
     public Path findBestPath(ArrayList<Node> arrayOfNode){
-
         //initialisation
         int weightTransitionMin = arrayOfNode.get(0).getArrayOfPath(0).getWeight();
         Path pathMin = arrayOfNode.get(0).getArrayOfPath(0);
@@ -48,7 +69,7 @@ public class Prim {
 
                 int transitionCurrent = arrayOfNode.get(i).getArrayOfPath(j).getWeight();
                 //on verifie que la transition n'est pas deja utilisé
-                if(arrayOfNode.get(i).getArrayOfPath(j).isUsed() == false){
+                if(!arrayOfNode.get(i).getArrayOfPath(j).isVariableIsUsed()){
 
                     //on stock la transition de poids min
                     if (transitionCurrent < weightTransitionMin){
@@ -58,14 +79,18 @@ public class Prim {
                 }
             }
         }
-
-        //on met la variable a utilisé
         pathMin.setVariableIsUsed(true);
+        sommePath = sommePath +pathMin.getWeight();
         return pathMin;
-
     }
 
-
+    /**
+     *
+     * @return le poids du chemin actuel
+     */
+    public int getSommePath() {
+        return sommePath;
+    }
 
 
 }
