@@ -28,19 +28,18 @@ public class Main {
         graph.addPath(path4);
 
 
-
        /* System.out.println(path2.isVariableIsUsed());
         System.out.println(graph.findBestPath(graph.arrayListOfNode).getWeight());
         System.out.println(path2.isVariableIsUsed());
         System.out.println(graph.findBestPath(graph.arrayListOfNode).getWeight());
         System.out.println("Poids des chemins = ");
         System.out.println(graph.getSommePath());
-
  */
-       Prim prim = new Prim();
-       System.out.println("Poids des chemins du graph "+prim.prim(graph));
+        Prim prim = new Prim(graph);
 
-      // graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
+        System.out.println("Poids des chemins du graph "+prim.prim());
+        // graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
+        prim.graph.display();
     }
 
 }
