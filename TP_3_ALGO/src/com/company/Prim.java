@@ -34,9 +34,6 @@ public class Prim {
 
             //    for (int i=0;i <= graph.arrayListOfUseNode.size()+1;i++){
             goodPath = findBestPath();
-            System.out.print(goodPath.getBegin().getLabel() + " -");
-            System.out.print(goodPath.getWeight()+ "- ");
-            System.out.println(goodPath.getEnd().getLabel());
 
             // }
             graph.arrayListOfUseNode.add(goodPath.getEnd());
