@@ -7,19 +7,24 @@ public class Path {
     private int weight;
     private boolean variableIsUsed;
 
-    public Path(Node begin, Node end, int weight) {
+    public Path(Node begin, Node end) {
         this.begin = begin;
         this.end = end;
-        this.weight = weight;
+        this.weight = findWeight();
         this.variableIsUsed =false ;
     }
 
+    public int findWeight(){
+        int DeltaX = end.getX() - begin.getX(), DeltaY = end.getY() - begin.getY();
+        return (int) Math.sqrt(Math.pow(DeltaX, 2) + Math.pow(DeltaY, 2));
+    }
+
     public void display(){
-        System.out.println(this.getBegin().getLabel());
+        //System.out.println(this.getBegin().getLabel());
         System.out.println("|");
         System.out.println(this.getWeight());
         System.out.println("|");
-        System.out.println(this.getEnd().getLabel());
+        //System.out.println(this.getEnd().getLabel());
     }
 
     public boolean isUsed(){
