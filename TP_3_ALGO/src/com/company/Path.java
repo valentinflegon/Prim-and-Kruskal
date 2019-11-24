@@ -2,67 +2,62 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Path {
-    private Node begin,end;
-    private int weight;
-    private boolean variableIsUsed;
+public class Node {
+    //si pas de Path alors ACM pas connexe !
+    private ArrayList<Path> arrayOfPath = new ArrayList<>();
+    private boolean isUsed;
+    private int index;
+    private int x, y;
 
-    public Path(Node begin, Node end) {
-        this.begin = begin;
-        this.end = end;
-        this.weight = findWeight();
-        this.variableIsUsed =false ;
-    }
 
-    public int findWeight(){
-        int DeltaX = end.getX() - begin.getX(), DeltaY = end.getY() - begin.getY();
-        return (int) Math.sqrt(Math.pow(DeltaX, 2) + Math.pow(DeltaY, 2));
-    }
-
-    public void display(){
-        //System.out.println(this.getBegin().getLabel());
-        System.out.println("|");
-        System.out.println(this.getWeight());
-        System.out.println("|");
-        //System.out.println(this.getEnd().getLabel());
-    }
-
-    public boolean isUsed(){
-        return this.variableIsUsed;
-    }
-
-    public boolean isVariableIsUsed() {
-        return variableIsUsed;
-    }
-
-    public void setVariableIsUsed(boolean variableIsUsed) {
-        this.variableIsUsed = variableIsUsed;
+    public Node(int x, int y) {
+        this.arrayOfPath = new ArrayList<>();
+        this.x = x;
+        this.y = y;
     }
 
 
-    public Node getBegin() {
-        return begin;
+    public ArrayList<Path> getArrayOfPath() {
+        return arrayOfPath;
     }
 
-    public void setBegin(Node begin) {
-        this.begin = begin;
+    public Path getArrayOfPath(int i) {
+        return arrayOfPath.get(i);
     }
 
-    public Node getEnd() {
-        return end;
+    public void setArrayOfPath(ArrayList<Path> arrayOfPath) {
+        this.arrayOfPath = arrayOfPath;
     }
 
-    public void setEnd(Node end) {
-        this.end = end;
+    public boolean isUsed() {
+        return isUsed;
     }
 
-    public int getWeight() {
-        return weight;
+    public void setUsed(boolean usage) {
+        isUsed = usage;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public int getIndex() {
+        return index;
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }
