@@ -9,60 +9,78 @@ import java.util.HashMap;
 /**
  * Partie 2 du TP Prim via UnionFind avec tas
  */
-public class UnionFind {
+public class UpgradedVersion {
     public Graph graph;
     public Path[] paths;
     public int[] parent;
 
-    public UnionFind(Graph graph){
+    public UpgradedVersion(Graph graph){
         this.graph = graph;
         parent = new int[graph.arrayListOfNode.size()];
         initialisePaths();
         initialiseParent();
     }
 
-    public boolean PrimUnionFind(){
+    public int prim(){
         boolean flag;
         Path tmpPath;
         int i;
+        int totalWeight = 0;
         do {
             flag = false;
             i = 0;
             tmpPath = null;
             do {
-                System.out.println(i + "eee" +parent[i]);
                 for (Path path : graph.arrayListOfNode.get(i).getArrayOfPath()){
                     if ((tmpPath == null || tmpPath.getWeight() > path.getWeight()) && parent[path.getEnd().getIndex()] == path.getEnd().getIndex() && !isPointedInParent(path.getEnd().getIndex()))
                         tmpPath = path;
                 }
                 if (parent[i] == i) flag = true;
                 i = parent[i];
-                System.out.println("boucle parent : " + i + parent[i]);
-                displayParent();
             }while (!flag);
-            if (tmpPath == null)return false;
-            System.out.println(tmpPath.getBegin().getIndex() + "eee" + tmpPath.getWeight() + "aaa" + tmpPath.getEnd().getIndex());
             parent[i] = tmpPath.getEnd().getIndex();
+            totalWeight += tmpPath.getWeight();
             setTrue(tmpPath);
+            System.out.println(tmpPath.getBegin().getIndex() + "to" + tmpPath.getEnd().getIndex() + " weight : " + tmpPath.getWeight());
+            displayParent();
         }while (!isValid());
-        return true;
+        return totalWeight;
     }
 
-    public boolean kruskalUnionFind(){
+    public int kruskal(){
         int endNodePosition, beginNodePosition;
+        System.out.println(paths.length);
+        int totalWeight = 0;
         for (Path path:paths) {
-            if (isValid())return true;
+            System.out.println(path.getBegin().getIndex()+ " weight "+path.getWeight()+" to "+path.getEnd().getIndex());
             endNodePosition = path.getEnd().getIndex();
             beginNodePosition = path.getBegin().getIndex();
-            if (parent[endNodePosition] == endNodePosition) {
-                parent[endNodePosition] = beginNodePosition;
+            if (parent[endNodePosition] == endNodePosition && parent[beginNodePosition] == beginNodePosition) {
                 setTrue(path);
-            }else if(!isLinked(beginNodePosition, endNodePosition)){
+                newTree(endNodePosition, parent[beginNodePosition]);
+                totalWeight += path.getWeight();
+            }else if (parent[endNodePosition] == endNodePosition && parent[beginNodePosition] != endNodePosition) {
+                setTrue(path);
+                newTree(endNodePosition, parent[beginNodePosition]);
+                totalWeight += path.getWeight();
+            }else if (parent[beginNodePosition] == beginNodePosition && parent[endNodePosition] != beginNodePosition){
+                setTrue(path);
+                newTree(beginNodePosition, parent[endNodePosition]);
+                totalWeight += path.getWeight();
+            }
+            /*if(!isLinked(beginNodePosition, endNodePosition)){
                 setNewRootInParent(beginNodePosition, endNodePosition);
                 setTrue(path);
-            }
+            }*/
+            displayParent();
         }
-        return false;
+        return totalWeight;
+    }
+
+    public void newTree(int oldTree, int newtree){
+        for (int i = 0; i < parent.length; i++) {
+            if (parent[i] == oldTree) parent[i] = newtree;
+        }
     }
 
     public boolean isValid(){
@@ -74,6 +92,7 @@ public class UnionFind {
                 if (flag > 1)return false;
             }
         }
+        System.out.println("validdddddddddddd");
         return true;
     }
 
@@ -113,11 +132,11 @@ public class UnionFind {
 
     private boolean isLinked(int firstInteger, int secondInteger) {
         int i = firstInteger;
-        while (parent[i] == i) {
+        while (parent[i] != i) {
             i = parent[i];
         }
         int j = secondInteger;
-        while (parent[j] == j) {
+        while (parent[j] != j) {
             j = parent[j];
         }
         if (j == i)return true;
