@@ -1,65 +1,99 @@
 package com.company;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Node node1 = new Node('a');
-        Node node2 = new Node('b');
-        Node node3 = new Node('c');
-        Node node4 = new Node('d');
-        Node node5 = new Node('e');
-        Node node6 = new Node('f');
-
         Graph graph = new Graph();
 
-        graph.addNode(node1);
-        graph.addNode(node2);
-        graph.addNode(node3);
-        graph.addNode(node4);
-        graph.addNode(node5);
-        graph.addNode(node6);
+        System.out.print("---- 0 = Generation Aleatoire----\n" +
+                         "---- 1 = Generation fixe     ----\n"+ "votre choix : ");
+        Scanner scanner = new Scanner(System.in);
+            int firstchoice = scanner.nextInt();
+            switch (firstchoice) {
+                case 0:
+                    Node tmpNode;
+                    Node newNode = new Node(0,0);
+                    Path newPath = new Path(newNode,newNode);
+                    int tmpInt = 0;
 
-        Path path1 = new Path(node1,node2,12);
-        Path path2 = new Path(node1,node3,1);
-        Path path = new Path(node2,node4,4);
-        Path path3 = new Path(node3,node2,2);
-        Path path4 = new Path(node1,node4,1);
-        Path path5 = new Path(node1,node5, 4);
-        Path path6 = new Path(node6,node5, 3);
-        Path path7 = new Path(node2,node5, 5);
-        Path path8 = new Path(node4,node5, 4);
-        Path path9 = new Path(node2,node6, 4);
-        Path path10 = new Path(node4,node6, 3);
-        Path path11 = new Path(node1,node6, 5);
-        Path path12 = new Path(node5,node6, 4);
+                    //painter de taille 800 x 600
+                    for (int i = 0; i < (15 + (int) (Math.random() * ( 300 - 15 ))); i++) {
+                        graph.addNode(new Node((int) (Math.random() * ( 800 )),(int) (Math.random() * ( 600 ))));
+                    }
+                    for (Node node:graph.arrayListOfNode) {
+                        newPath.setBegin(node);
+                        for (int i = 0; i < graph.arrayListOfNode.size()-1; i++){
+                            System.out.println("path");
+                            do {
+                                tmpInt=(int) (Math.random() * ( (graph.arrayListOfNode.size()/2)));
+                                tmpNode = graph.arrayListOfNode.get(tmpInt);
+                                System.out.println(tmpInt + "size : " + graph.arrayListOfNode.size());
+                                System.out.println(tmpNode.getIndex() +" rdPath "+ node.getIndex());
+                            }while (tmpInt == node.getIndex());
+                            //newPath.setEnd(tmpNode);
+                            graph.addPath(new Path(node,graph.arrayListOfNode.get(tmpInt)));
+                        }
+                    }
+                    break;
+                case 1:
+                    Node node1 = new Node(400,300);
+                    Node node2 = new Node(60,90);
+                    Node node3 = new Node(250,400);
+                    Node node4 = new Node(500,500);
+                    Node node5 = new Node(200,450);
+                    Node node6 = new Node(450,300);
 
-        graph.addPath(path1);
-        graph.addPath(path2);
-        graph.addPath(path);
-        graph.addPath(path3);
-        graph.addPath(path4);
-        graph.addPath(path5);
-        graph.addPath(path6);
-        graph.addPath(path7);
-        graph.addPath(path8);
-        graph.addPath(path9);
-        graph.addPath(path10);
-        graph.addPath(path11);
-        graph.addPath(path12);
+                    graph.addNode(node1);
+                    graph.addNode(node2);
+                    graph.addNode(node3);
+                    graph.addNode(node4);
+                    graph.addNode(node5);
+                    graph.addNode(node6);
+
+                    Path path1 = new Path(node5,node2);
+                    Path path2 = new Path(node1,node3);
+                    Path path = new Path(node2,node4);
+                    Path path3 = new Path(node3,node2);
+                    Path path4 = new Path(node1,node4);
+                    Path path5 = new Path(node1,node5);
+                    Path path6 = new Path(node3,node5);
+                    Path path7 = new Path(node2,node5);
+                    Path path8 = new Path(node4,node5);
+                    Path path9 = new Path(node2,node6);
+                    Path path10 = new Path(node4,node6);
+                    Path path11 = new Path(node1,node6);
+                    Path path12 = new Path(node5,node6);
+                    Path path13 = new Path(node4,node3);
+
+                    graph.addPath(path1);
+                    graph.addPath(path2);
+                    graph.addPath(path);
+                    graph.addPath(path3);
+                    graph.addPath(path4);
+                    graph.addPath(path5);
+                    graph.addPath(path6);
+                    graph.addPath(path7);
+                    graph.addPath(path8);
+                    graph.addPath(path9);
+                    graph.addPath(path10);
+                    graph.addPath(path11);
+                    graph.addPath(path12);
+                    graph.addPath(path13);
+                    break;
+            }
 
         graph.initArrayListOfNode();
+        graph.display1();
 
-       /* System.out.println(path2.isVariableIsUsed());
-        System.out.println(graph.findBestPath(graph.arrayListOfNode).getWeight());
-        System.out.println(path2.isVariableIsUsed());
-        System.out.println(graph.findBestPath(graph.arrayListOfNode).getWeight());
-        System.out.println("Poids des chemins = ");
-        System.out.println(graph.getSommePath());
-        */
-           System.out.print("---- 0 = Prim             ----\n" + "---- 1 = Kurskal          ----\n" + "---- 2 = PrimUnionFind    ----\n" + "---- 3 = KurskalUnionFind ----\n" + "votre choix : ");
-           Scanner scanner = new Scanner(System.in);
+
+           System.out.print("---- 0 = Prim                ----\n" +
+                   "---- 1 = Kurskal             ----\n" +
+                   "---- 2 = Prim Amelioré       ----\n" +
+                   "---- 3 = Kurskal Amelioré    ----\n" + "votre choix : ");
+           scanner = new Scanner(System.in);
            int choice = scanner.nextInt();
 
            switch (choice) {
@@ -75,14 +109,14 @@ public class Main {
                    kruskal.graph.display();
                    break;
                case 2:
-                   UnionFind primUnionFind = new UnionFind(graph);
-                   primUnionFind.PrimUnionFind();
-                   primUnionFind.graph.display2();
+                   UpgradedVersion primUpgradedVersion = new UpgradedVersion(graph);
+                   System.out.println("TotalWeight : " + primUpgradedVersion.prim());
+                   primUpgradedVersion.graph.display2();
                    break;
                case 3:
-                   UnionFind kruskalUnionFind = new UnionFind(graph);
-                   kruskalUnionFind.kruskalUnionFind();
-                   kruskalUnionFind.graph.display2();
+                   UpgradedVersion kruskalUpgradedVersion = new UpgradedVersion(graph);
+                   System.out.println("TotalWeight : " + kruskalUpgradedVersion.kruskal());
+                   kruskalUpgradedVersion.graph.display2();
                    break;
            }
         /*
