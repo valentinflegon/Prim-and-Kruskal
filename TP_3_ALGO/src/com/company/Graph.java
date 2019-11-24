@@ -1,23 +1,12 @@
 package com.company;
 
-import com.company.src.Main;
-import com.company.src.Point;
+import com.company.front.Main;
+import com.company.front.Point;
 
 import tp2.lib.Painter;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.*;
 import java.util.ArrayList;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.JComponent;
 
 public class Graph extends JComponent {
@@ -47,20 +36,20 @@ public class Graph extends JComponent {
         Point[] points = new Point[arrayListOfNode.size()];
         Painter painter = new Painter(800,600);
         int begin, end;
-
+        ArrayList<Path> printedPath = new ArrayList<>();
         Main.createPoints(points);
         Main.drawPoints(painter,points);
         for (Node node:arrayListOfUseNode) {
-
             for (Path path:node.getArrayOfPath()) {
-                if(path.isUsed()) {
+                if(path.isUsed() && !printedPath.contains(path)) {
+                    printedPath.add(path);
                     begin = arrayListOfUseNode.indexOf(path.getBegin());
                     end = arrayListOfUseNode.indexOf(path.getEnd());
+                    System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
                     points[begin].drawLine(points[end],painter,Color.lightGray);
                 }
             }
         }
-
 
         /*
         super.paintComponent(g);
@@ -71,4 +60,37 @@ public class Graph extends JComponent {
         g2d.draw(circle);*/
     }
 
+    public void display2(){
+        Point[] points = new Point[arrayListOfNode.size()];
+        Painter painter = new Painter(800,600);
+        int begin, end;
+
+        Main.createPoints(points);
+        Main.drawPoints(painter,points);
+        for (Node node:arrayListOfNode) {
+            for (Path path:node.getArrayOfPath()) {
+                if(path.isUsed()) {
+                    begin = arrayListOfNode.indexOf(path.getBegin());
+                    end = arrayListOfNode.indexOf(path.getEnd());
+                    System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
+                    points[begin].drawLine(points[end],painter,Color.lightGray);
+                }
+            }
+        }
+    }
+
+    public void initArrayListOfNode(){
+        int i = 0;
+        for (Node node:arrayListOfNode) {
+            node.setIndex(i);
+            i++;
+        }
+    }
+
+    public boolean containValidNode(Node node){
+        for (Node actualNode : arrayListOfNode) {
+            if (actualNode.isUsed() == node.isUsed()) return  true;
+        }
+        return false;
+    }
 }
