@@ -16,9 +16,9 @@ Nous pouvons ajouter des nodes à notre graphique, des chemins, l'afficher avec 
 Dans la classe UpgradeVersion nous aurons la version améliorée de prim et kruskal.
 Nous aurons pour attribut un graph, un tableau de path ainsi qu'un tableau de parent qui aura pour taille le nombre de Node de notre graph.
  
- * Prim va utiliser un UnionFind avec des tas, nous allons parcourir notre liste de path pour chaque node de la liste, si  // conditions ligne 33 
+ * Prim va utiliser un UnionFind avec des tas, nous allons parcourir notre liste de path pour chaque node de la liste, afin de réaliser un tas avec les pahts 
 
-* Kruskal 
+* Kruskal va utiliser la méthode dite d’ « Union – Find » utilisant des « forêts » pour cela on parcourt les paths et afficher pour chacun l'index du node de debut, son poids et l'index du node de fin.
 
 
 ## Classe Kruskal
