@@ -18,17 +18,16 @@ public class Main {
                     Node newNode = new Node(0,0);
                     Path newPath = new Path(newNode,newNode);
                     int tmpInt = 0;
-
                     //painter de taille 800 x 600
-                    for (int i = 0; i < (15 + (int) (Math.random() * ( 300 - 15 ))); i++) {
+                    for (int i = 0; i < (15 + (int) (Math.random() * ( 50 ))); i++) {
                         graph.addNode(new Node((int) (Math.random() * ( 800 )),(int) (Math.random() * ( 600 ))));
                     }
                     for (Node node:graph.arrayListOfNode) {
                         newPath.setBegin(node);
-                        for (int i = 0; i < graph.arrayListOfNode.size()-1; i++){
+                        for (int i = 0; i < graph.arrayListOfNode.size(); i++){
                             System.out.println("path");
                             do {
-                                tmpInt=(int) (Math.random() * ( (graph.arrayListOfNode.size()/2)));
+                                tmpInt=(int) (Math.random() * ((graph.arrayListOfNode.size())));
                                 tmpNode = graph.arrayListOfNode.get(tmpInt);
                                 System.out.println(tmpInt + "size : " + graph.arrayListOfNode.size());
                                 System.out.println(tmpNode.getIndex() +" rdPath "+ node.getIndex());
@@ -86,7 +85,6 @@ public class Main {
             }
 
         graph.initArrayListOfNode();
-        graph.display1();
 
 
            System.out.print("---- 0 = Prim                ----\n" +
@@ -131,8 +129,5 @@ public class Main {
         kruskal.kruskal();
         kruskal.graph.display();
          */
-
-
     }
-
 }
