@@ -32,11 +32,18 @@ public class UpgradedVersion {
             tmpPath = null;
             do {
                 for (Path path : graph.arrayListOfNode.get(i).getArrayOfPath()){
-                    if ((tmpPath == null || tmpPath.getWeight() > path.getWeight()) && parent[path.getEnd().getIndex()] == path.getEnd().getIndex() && !isPointedInParent(path.getEnd().getIndex()))
+                    if ((tmpPath == null || tmpPath.getWeight() > path.getWeight()) && parent[path.getEnd().getIndex()] == path.getEnd().getIndex() && !isPointedInParent(path.getEnd().getIndex())) {
                         tmpPath = path;
+                        System.out.println("path valide");
+                    }
+                    System.out.println("path : " + path);
                 }
-                if (parent[i] == i) flag = true;
+                if (parent[i] == i) {
+                    flag = true;
+                    System.out.println("flag : true");
+                }
                 i = parent[i];
+                System.out.println(i + " = parenti = " + parent[i]);
             }while (!flag);
             parent[i] = tmpPath.getEnd().getIndex();
             totalWeight += tmpPath.getWeight();
@@ -72,6 +79,7 @@ public class UpgradedVersion {
                 setNewRootInParent(beginNodePosition, endNodePosition);
                 setTrue(path);
             }*/
+            System.out.println(path.getBegin().getIndex() + "to" + path.getEnd().getIndex() + " weight : " + path.getWeight());
             displayParent();
         }
         return totalWeight;
@@ -92,7 +100,6 @@ public class UpgradedVersion {
                 if (flag > 1)return false;
             }
         }
-        System.out.println("validdddddddddddd");
         return true;
     }
 
