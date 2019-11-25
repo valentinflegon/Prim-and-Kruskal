@@ -19,7 +19,7 @@ public class Prim {
      *
      */
     public int prim(){
-
+        /*
         //partir d'un noeud
         //ici le premier noeud rentré
         Node initNode = graph.arrayListOfNode.get(0);
@@ -42,7 +42,9 @@ public class Prim {
             // cad il faut qu'il y ait autant de node utilisé que de Node rentré
         }
         return getSommePath();
-    }
+        */
+
+    return Integer.parseInt(null);}
 
     /***
      *
@@ -50,6 +52,7 @@ public class Prim {
      * @return
      */
     public Path findBestPath(){
+        /*
         //initialisation
         int weightTransitionMin = graph.arrayListOfUseNode.get(0).getArrayOfPath(0).getWeight();
         Path pathMin = graph.arrayListOfUseNode.get(0).getArrayOfPath(0);
@@ -76,7 +79,10 @@ public class Prim {
         pathMin.setVariableIsUsed(true);
         sommePath = sommePath +pathMin.getWeight();
         return pathMin;
-    }
+
+         */
+
+    return null;}
 
     /**
      *
