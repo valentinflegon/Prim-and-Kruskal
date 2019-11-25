@@ -13,13 +13,14 @@ public class Graph extends JComponent {
     //création d'un graph avec des transtions
 
     public ArrayList<Node> arrayListOfNode;
-    public ArrayList<Node> arrayListOfUseNode;
     public ArrayList<Point> arrayListOfPoint;
+    public ArrayList<Path> arrayOfPath;
+
 
     public Graph() {
         this.arrayListOfNode = new ArrayList<Node>();
-        this.arrayListOfUseNode = new ArrayList<Node>();
-        arrayListOfPoint = new ArrayList<>();
+        this.arrayOfPath = new ArrayList<>();
+        this.arrayListOfPoint = new ArrayList<>();
     }
 
     public void addNode(Node node){
@@ -29,8 +30,7 @@ public class Graph extends JComponent {
     }
 
     public void addPath(Path path){
-        path.getBegin().getArrayOfPath().add(path);
-        path.getEnd().getArrayOfPath().add(path);
+        arrayOfPath.add(path);
     }
 
     public void display(){
@@ -42,6 +42,7 @@ public class Graph extends JComponent {
             points[i] = new Point(arrayListOfNode.get(i).getX(), arrayListOfNode.get(i).getY());
         }
         Main.drawPoints(painter,points);
+        /*
         for (Node node:arrayListOfUseNode) {
             for (Path path:node.getArrayOfPath()) {
                 if(path.isUsed() && !printedPath.contains(path)) {
@@ -53,24 +54,8 @@ public class Graph extends JComponent {
                 }
             }
         }
-    }
-    public void display1(){
-        Point[] points = new Point[arrayListOfNode.size()];
-        Painter painter = new Painter(800,600);
-        int begin, end;
-        for (int i = 0; i<arrayListOfNode.size(); i++) {
-            points[i] = new Point(arrayListOfNode.get(i).getX(), arrayListOfNode.get(i).getY());
-        }
-        Main.drawPoints(painter,points);
-        for (Node node:arrayListOfNode) {
-            for (Path path:node.getArrayOfPath()) {
-                begin = arrayListOfNode.indexOf(path.getBegin());
-                end = arrayListOfNode.indexOf(path.getEnd());
-                //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
-                points[begin].drawLine(points[end],painter,Color.lightGray);
-            }
-        }
-        Main.drawPoints(painter,points);
+
+         */
     }
 
 
@@ -82,22 +67,16 @@ public class Graph extends JComponent {
             points[i] = new Point(arrayListOfNode.get(i).getX(), arrayListOfNode.get(i).getY());
         }
         Main.drawPoints(painter,points);
-        for (Node node:arrayListOfNode) {
-            for (Path path:node.getArrayOfPath()) {
+        for (Path path:arrayOfPath) {
+            begin = arrayListOfNode.indexOf(path.getBegin());
+            end = arrayListOfNode.indexOf(path.getEnd());
+            points[begin].drawLine(points[end],painter,Color.lightGray);
+        }
+        for (Path path:arrayOfPath) {
+            if (path.isUsed()) {
                 begin = arrayListOfNode.indexOf(path.getBegin());
                 end = arrayListOfNode.indexOf(path.getEnd());
-                //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
-                points[begin].drawLine(points[end],painter,Color.lightGray);
-            }
-        }
-        for (Node node:arrayListOfNode) {
-            for (Path path:node.getArrayOfPath()) {
-                if(path.isUsed()) {
-                    begin = arrayListOfNode.indexOf(path.getBegin());
-                    end = arrayListOfNode.indexOf(path.getEnd());
-                    //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
-                    points[begin].drawLine(points[end],painter,Color.blue);
-                }
+                points[begin].drawLine(points[end], painter, Color.blue);
             }
         }
         Main.drawPoints(painter,points);
