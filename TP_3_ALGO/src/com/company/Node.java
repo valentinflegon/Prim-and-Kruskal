@@ -4,30 +4,18 @@ import java.util.ArrayList;
 
 public class Node {
     //si pas de Path alors ACM pas connexe !
-    private ArrayList<Path> arrayOfPath = new ArrayList<>();
+
     private boolean isUsed;
     private int index;
     private int x, y;
 
 
     public Node(int x, int y) {
-        this.arrayOfPath = new ArrayList<>();
+
         this.x = x;
         this.y = y;
     }
 
-
-    public ArrayList<Path> getArrayOfPath() {
-        return arrayOfPath;
-    }
-
-    public Path getArrayOfPath(int i) {
-        return arrayOfPath.get(i);
-    }
-
-    public void setArrayOfPath(ArrayList<Path> arrayOfPath) {
-        this.arrayOfPath = arrayOfPath;
-    }
 
     public boolean isUsed() {
         return isUsed;
