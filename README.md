@@ -13,7 +13,12 @@ La classe graph va representer un graphique avec pour attribut un liste de node,
 Nous pouvons ajouter des nodes a notres graphique, des chemins, l'afficher avec la méthodes display.
 
 ## Classe UpgradeVersion
+Dans la classe UpgradeVersion nous aurons la version amélioré de prim et kruskal.
+Nous aurons pour attribut un graph, un tableua de path ainsi qu'un tableau de parent qui aura pour taille le nombre de Node de notre graph.
+ 
+ * Prim va utiliser un UnionFind avec des tas, nous allons parcourir notre liste de path pour chaque node de la liste, si  // conditions ligne 33 
 
+* Kruskal 
 
 
 ## Classe Kruskal
