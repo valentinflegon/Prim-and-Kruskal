@@ -15,7 +15,10 @@ public class Kruskal {
      * @param
      * @return
      */
+
     public int kruskal(){
+          /*
+
         Path goodPath;
         do{
             goodPath = findBestPath();
@@ -32,7 +35,9 @@ public class Kruskal {
 
         }
         return getSommePath();
-    }
+
+           */
+    return Integer.parseInt(null);}
 
     /**
      * fonction qui va trier toutes les transitions
@@ -41,6 +46,7 @@ public class Kruskal {
      * @return une liste de transitions triées
      */
     public ArrayList<Path> arrayListOfNodeWhereSortPath(){
+        /*
         ArrayList<Path> listeTrieOfPath = new ArrayList<>();
 
         //on ajoute toute les transitions dans une liste
@@ -57,7 +63,9 @@ public class Kruskal {
 
         //retourne une liste avec toute les transitions trié
         return listeTrieOfPath;
-    }
+
+         */
+    return null;}
 
     /**
      *
