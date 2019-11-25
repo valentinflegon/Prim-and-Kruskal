@@ -31,19 +31,12 @@ public class UpgradedVersion {
             i = 0;
             tmpPath = null;
             do {
-                for (Path path : graph.arrayListOfNode.get(i).getArrayOfPath()){
-                    if ((tmpPath == null || tmpPath.getWeight() > path.getWeight()) && parent[path.getEnd().getIndex()] == path.getEnd().getIndex() && !isPointedInParent(path.getEnd().getIndex())) {
+                for (Path path : graph.arrayOfPath){
+                    if (((path.getBegin() == graph.arrayListOfNode.get(i)) || (path.getEnd() == graph.arrayListOfNode.get(i))) && (tmpPath == null || tmpPath.getWeight() > path.getWeight()) && parent[path.getEnd().getIndex()] == path.getEnd().getIndex() && !isPointedInParent(path.getEnd().getIndex()))
                         tmpPath = path;
-                        System.out.println("path valide");
-                    }
-                    System.out.println("path : " + path);
                 }
-                if (parent[i] == i) {
-                    flag = true;
-                    System.out.println("flag : true");
-                }
+                if (parent[i] == i) flag = true;
                 i = parent[i];
-                System.out.println(i + " = parenti = " + parent[i]);
             }while (!flag);
             parent[i] = tmpPath.getEnd().getIndex();
             totalWeight += tmpPath.getWeight();
@@ -79,7 +72,6 @@ public class UpgradedVersion {
                 setNewRootInParent(beginNodePosition, endNodePosition);
                 setTrue(path);
             }*/
-            System.out.println(path.getBegin().getIndex() + "to" + path.getEnd().getIndex() + " weight : " + path.getWeight());
             displayParent();
         }
         return totalWeight;
@@ -100,6 +92,7 @@ public class UpgradedVersion {
                 if (flag > 1)return false;
             }
         }
+        System.out.println("validdddddddddddd");
         return true;
     }
 
@@ -110,18 +103,9 @@ public class UpgradedVersion {
     }
 
     private void initialisePaths(){
-        ArrayList<Path> pathArrayList = new ArrayList<>();
-        for (Node node:graph.arrayListOfNode) {
-            for (int pathPosition = 0; pathPosition < node.getArrayOfPath().size(); pathPosition++){
-                if (!pathArrayList.contains(node.getArrayOfPath().get(pathPosition))) {
-                    pathArrayList.add(node.getArrayOfPath().get(pathPosition));
-                }
-            }
-            //node.setKeyValue(Integer.MAX_VALUE);
-        }
-        paths = new Path[pathArrayList.size()];
+        paths = new Path[graph.arrayOfPath.size()];
         int i = 0;
-        for (Path path : pathArrayList) {
+        for (Path path : graph.arrayOfPath) {
             paths[i] = path;
             i++;
         }
@@ -129,12 +113,10 @@ public class UpgradedVersion {
     }
 
     private void setTrue(Path path){
-        graph.arrayListOfNode.get(graph.arrayListOfNode.indexOf(path.getEnd())).getArrayOfPath().get(graph.arrayListOfNode.get(graph.arrayListOfNode.indexOf(path.getEnd())).getArrayOfPath().indexOf(path)).setVariableIsUsed(true);
         path.setVariableIsUsed(true);
         path.getEnd().setUsed(true);
         path.getBegin().setUsed(true);
-        path.getEnd().getArrayOfPath().get(path.getEnd().getArrayOfPath().indexOf(path)).setVariableIsUsed(true);
-        path.getBegin().getArrayOfPath().get(path.getBegin().getArrayOfPath().indexOf(path)).setVariableIsUsed(true);
+        graph.arrayOfPath.set(graph.arrayOfPath.indexOf(path), path);
     }
 
     private boolean isLinked(int firstInteger, int secondInteger) {
