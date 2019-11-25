@@ -84,14 +84,23 @@ public class Graph extends JComponent {
         Main.drawPoints(painter,points);
         for (Node node:arrayListOfNode) {
             for (Path path:node.getArrayOfPath()) {
+                begin = arrayListOfNode.indexOf(path.getBegin());
+                end = arrayListOfNode.indexOf(path.getEnd());
+                //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
+                points[begin].drawLine(points[end],painter,Color.lightGray);
+            }
+        }
+        for (Node node:arrayListOfNode) {
+            for (Path path:node.getArrayOfPath()) {
                 if(path.isUsed()) {
                     begin = arrayListOfNode.indexOf(path.getBegin());
                     end = arrayListOfNode.indexOf(path.getEnd());
                     //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
-                    points[begin].drawLine(points[end],painter,Color.lightGray);
+                    points[begin].drawLine(points[end],painter,Color.blue);
                 }
             }
         }
+        Main.drawPoints(painter,points);
     }
 
     public void initArrayListOfNode(){
