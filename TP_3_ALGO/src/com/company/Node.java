@@ -7,6 +7,8 @@ public class Node {
     private boolean isUsed;
     private int index;
     private int x, y;
+    static int NEX_ID = 0;
+    public int clusterId = NEX_ID++;
 
 
     public Node(int x, int y) {
