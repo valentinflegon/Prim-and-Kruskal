@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JComponent;
 
+
 public class Graph extends JComponent {
     //création d'un graph avec des transtions
-
     public ArrayList<Node> arrayListOfNode;
-    public ArrayList<Point> arrayListOfPoint;
+    public ArrayList<Point> arrayListOfPoint; //affichage graphique
     public ArrayList<Path> arrayOfPath;
 
 
@@ -36,26 +36,10 @@ public class Graph extends JComponent {
     public void display(){
         Point[] points = new Point[arrayListOfNode.size()];
         Painter painter = new Painter(800,600);
-        int begin, end;
-        ArrayList<Path> printedPath = new ArrayList<>();
         for (int i = 0; i<arrayListOfNode.size(); i++) {
             points[i] = new Point(arrayListOfNode.get(i).getX(), arrayListOfNode.get(i).getY());
         }
         Main.drawPoints(painter,points);
-        /*
-        for (Node node:arrayListOfUseNode) {
-            for (Path path:node.getArrayOfPath()) {
-                if(path.isUsed() && !printedPath.contains(path)) {
-                    printedPath.add(path);
-                    begin = arrayListOfUseNode.indexOf(path.getBegin());
-                    end = arrayListOfUseNode.indexOf(path.getEnd());
-                    //System.out.println(path.getBegin().getLabel() + "-" + path.getWeight() + "-" + path.getEnd().getLabel());
-                    points[begin].drawLine(points[end],painter,Color.lightGray);
-                }
-            }
-        }
-
-         */
     }
 
 
@@ -70,12 +54,30 @@ public class Graph extends JComponent {
         for (Path path:arrayOfPath) {
             begin = arrayListOfNode.indexOf(path.getBegin());
             end = arrayListOfNode.indexOf(path.getEnd());
-            points[begin].drawLine(points[end],painter,Color.lightGray);
+            points[begin].drawLine(points[end], painter, Color.lightGray);
         }
         for (Path path:arrayOfPath) {
+            begin = arrayListOfNode.indexOf(path.getBegin());
+            end = arrayListOfNode.indexOf(path.getEnd());
             if (path.isUsed()) {
-                begin = arrayListOfNode.indexOf(path.getBegin());
-                end = arrayListOfNode.indexOf(path.getEnd());
+                points[begin].drawLine(points[end], painter, Color.blue);
+            }
+        }
+        Main.drawPoints(painter,points);
+    }
+
+    public void display3(){
+        Point[] points = new Point[arrayListOfNode.size()];
+        Painter painter = new Painter(800,600);
+        int begin, end;
+        for (int i = 0; i<arrayListOfNode.size(); i++) {
+            points[i] = new Point(arrayListOfNode.get(i).getX(), arrayListOfNode.get(i).getY());
+        }
+        Main.drawPoints(painter,points);
+        for (Path path:arrayOfPath) {
+            begin = arrayListOfNode.indexOf(path.getBegin());
+            end = arrayListOfNode.indexOf(path.getEnd());
+            if (path.isUsed()) {
                 points[begin].drawLine(points[end], painter, Color.blue);
             }
         }
@@ -88,12 +90,5 @@ public class Graph extends JComponent {
             node.setIndex(i);
             i++;
         }
-    }
-
-    public boolean containValidNode(Node node){
-        for (Node actualNode : arrayListOfNode) {
-            if (actualNode.isUsed() == node.isUsed()) return  true;
-        }
-        return false;
     }
 }
