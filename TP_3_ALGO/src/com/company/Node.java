@@ -1,25 +1,19 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Node {
-    //si pas de Path alors ACM pas connexe !
-
     private boolean isUsed;
     private int index;
     private int x, y;
 
 
     public Node(int x, int y) {
-
         this.x = x;
         this.y = y;
     }
 
-
-    public boolean isUsed() {
-        return isUsed;
-    }
 
     public void setUsed(boolean usage) {
         isUsed = usage;
