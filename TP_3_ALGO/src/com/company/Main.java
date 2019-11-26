@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -160,25 +162,16 @@ public class Main {
             case 2:
                 UpgradedVersion primUpgradedVersion = new UpgradedVersion(graph);
                 System.out.println("TotalWeight : " + primUpgradedVersion.prim());
-                primUpgradedVersion.graph.display2();
+                if (firstchoice == 2) {primUpgradedVersion.graph.display3();}
+                else primUpgradedVersion.graph.display2();
+
                 break;
             case 3:
                 UpgradedVersion kruskalUpgradedVersion = new UpgradedVersion(graph);
                 System.out.println("TotalWeight : " + kruskalUpgradedVersion.kruskal());
-                kruskalUpgradedVersion.graph.display2();
+                if (firstchoice == 2) {kruskalUpgradedVersion.graph.display3();}
+                else kruskalUpgradedVersion.graph.display2();
                 break;
         }
-        /*
-        Prim prim = new Prim(graph);
-        System.out.println("Poids des chemins du graph "+prim.prim());
-            // graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
-        prim.graph.display();
-        */
-
-        /*
-        Kruskal kruskal = new Kruskal(graph);
-        kruskal.kruskal();
-        kruskal.graph.display();
-         */
     }
 }
