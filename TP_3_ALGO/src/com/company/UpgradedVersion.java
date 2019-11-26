@@ -68,10 +68,6 @@ public class UpgradedVersion {
                 newTree(beginNodePosition, parent[endNodePosition]);
                 totalWeight += path.getWeight();
             }
-            /*if(!isLinked(beginNodePosition, endNodePosition)){
-                setNewRootInParent(beginNodePosition, endNodePosition);
-                setTrue(path);
-            }*/
             displayParent();
         }
         return totalWeight;
@@ -92,7 +88,6 @@ public class UpgradedVersion {
                 if (flag > 1)return false;
             }
         }
-        System.out.println("validdddddddddddd");
         return true;
     }
 
@@ -132,13 +127,6 @@ public class UpgradedVersion {
         else return false;
     }
 
-    private void setNewRootInParent(int firstInteger, int secondInteger){
-        int j = secondInteger;
-        while (parent[j] == j) {
-            j = parent[j];
-        }
-        parent[j]=firstInteger;
-    }
     public void bubbleSort() {
         int n = paths.length;
         for (int i = 0; i < n-1; i++)
