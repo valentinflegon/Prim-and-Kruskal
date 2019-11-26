@@ -1,8 +1,11 @@
 package com.company;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class Kruskal {
-    private int sommePath;
+    private int sommePath = 0;
     Graph graph;
 
     public Kruskal(Graph graph) {
@@ -10,81 +13,39 @@ public class Kruskal {
         this.graph = graph;
     }
 
-    /**
-     *
-     * @param
-     * @return
-     */
 
-    public int kruskal(){
-          /*
-
-        Path goodPath;
-        do{
-            goodPath = findBestPath();
-            goodPath.getBegin().setUsed(true);
-            goodPath.getEnd().setUsed(true);
-            goodPath.setVariableIsUsed(true);
-            goodPath.getBegin().getArrayOfPath().get(goodPath.getBegin().getArrayOfPath().indexOf(goodPath)).setVariableIsUsed(true);
-            goodPath.getEnd().getArrayOfPath().get(goodPath.getEnd().getArrayOfPath().indexOf(goodPath)).setVariableIsUsed(true);
-            graph.arrayListOfUseNode.add(goodPath.getBegin());
-            graph.arrayListOfUseNode.add(goodPath.getEnd());
-        }while (graph.arrayListOfNode.size() != graph.arrayListOfUseNode.size());
-        for (Node node: graph.arrayListOfUseNode
-             ) {
-
-        }
-        return getSommePath();
-
-           */
-    return Integer.parseInt(null);}
-
-    /**
-     * fonction qui va trier toutes les transitions
-     *
-     * @param
-     * @return une liste de transitions triées
-     */
-    public ArrayList<Path> arrayListOfNodeWhereSortPath(){
-        /*
-        ArrayList<Path> listeTrieOfPath = new ArrayList<>();
-
-        //on ajoute toute les transitions dans une liste
-        for (int i=0;i<graph.arrayListOfNode.size();i++){
-            for (int j=0;j<graph.arrayListOfNode.get(i).getArrayOfPath().size();j++){
-                listeTrieOfPath.add(graph.arrayListOfNode.get(i).getArrayOfPath().get(j));
-                System.out.println(listeTrieOfPath.get(i).getWeight());
+    public List<Path> sortPath(Graph graph){
+        List<Path> listPath = new ArrayList<>();
+        for (int i=0; i<graph.arrayListOfNode.size();i++){
+            for (int j=0; j<graph.arrayListOfNode.size(); j++){
+                listPath.add(new Path(graph.arrayListOfNode.get(i),graph.arrayListOfNode.get(j)));
             }
         }
 
-        //on trie la liste
-        //a voir
-       // Collections.sort(listeTrieOfPath);
-
-        //retourne une liste avec toute les transitions trié
-        return listeTrieOfPath;
-
-         */
-    return null;}
-
-    /**
-     *
-     * @param
-     * @return
-     */
-    public Path findBestPath() {
-        ArrayList<Path> arrayListSortPath = arrayListOfNodeWhereSortPath();
-        Path goodPath ;
-        for (int i=0;i<arrayListSortPath.size();i++){
-            if (!arrayListSortPath.get(i).isVariableIsUsed()){
-                goodPath = arrayListSortPath.get(i);
-                arrayListSortPath.get(i).setVariableIsUsed(true);
-                sommePath = sommePath + goodPath.getWeight();
-                return goodPath;
-            }
-        }
-        return null;
+        listPath.sort(Comparator.comparing(Path::getWeight));
+        return listPath;
     }
+
+    public List<Path> kruskal(Graph graph){
+         List<Path> sortPath = sortPath(graph);
+         List<Path> listACM = new ArrayList<>();
+         int i= 0;
+         while (listACM.size() < sortPath.size()-1){
+             Path path = sortPath.get(i++);
+             int firstId = path.getBegin().clusterId;
+             int secondId = path.getEnd().clusterId;
+             if (firstId != secondId){
+                 listACM.add(path);
+                 for(Node n: graph.arrayListOfNode){
+                     if (n.clusterId == secondId){
+                         n.clusterId = firstId;
+                     }
+                 }
+             }
+         }
+         return listACM;
+    }
+
 
     /**
      *
@@ -93,4 +54,6 @@ public class Kruskal {
     public int getSommePath() {
         return sommePath;
     }
+
+
 }
