@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Kruskal {
-    private int sommePath = 0;
+    public static double sommePath = 0;
     Graph graph;
 
     public Kruskal(Graph graph) {
@@ -36,6 +36,7 @@ public class Kruskal {
              int secondId = path.getEnd().clusterId;
              if (firstId != secondId){
                  listACM.add(path);
+                 sommePath = sommePath + sortPath.get(i).getWeight();
                  for(Node n: graph.arrayListOfNode){
                      if (n.clusterId == secondId){
                          n.clusterId = firstId;
@@ -51,7 +52,7 @@ public class Kruskal {
      *
      * @return
      */
-    public int getSommePath() {
+    public double getSommePath() {
         return sommePath;
     }
 
