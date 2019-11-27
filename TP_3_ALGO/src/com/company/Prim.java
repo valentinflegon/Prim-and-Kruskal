@@ -1,12 +1,12 @@
 package com.company;
-
-
-
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class Prim {
-    private int sommePath;
+    private double sommePath;
     public Graph graph;
 
     public Prim(Graph graph) {
@@ -14,83 +14,41 @@ public class Prim {
         this.graph = graph;
     }
 
-    /**
-     *
-     *
-     */
-    public int prim(){
-        /*
-        //partir d'un noeud
-        //ici le premier noeud rentré
-        Node initNode = graph.arrayListOfNode.get(0);
-        graph.arrayListOfUseNode.add(initNode);
-        Path goodPath= initNode.getArrayOfPath().get(0);
-        while (graph.arrayListOfNode.size() != graph.arrayListOfUseNode.size()){
-            //    System.out.println("nombre de noeud : "+graph.arrayListOfNode.size());
-            //  System.out.println("nombre de noeud utilisé :"+graph.arrayListOfUseNode.size());
-
-            System.out.println("nombre de noeud rentré :"+graph.arrayListOfNode.size());
-            System.out.println("nombre de noeud utilisé :"+ graph.arrayListOfUseNode.size());
-
-            //    for (int i=0;i <= graph.arrayListOfUseNode.size()+1;i++){
-            goodPath = findBestPath();
-
-            // }
-            graph.arrayListOfUseNode.add(goodPath.getEnd());
-
-            //on fait ca tant que tout les nodes ne sont pas utilisé
-            // cad il faut qu'il y ait autant de node utilisé que de Node rentré
+    public List<Node> prim() {
+        List<Node> acm = new ArrayList<>();
+        PriorityQueue<Node> noVisitNode = new PriorityQueue<>(Comparator.comparing(node -> node.minWeight));
+        for (Node node:graph.arrayListOfNode){
+           node.minWeight = Integer.MIN_VALUE;
         }
-        return getSommePath();
-        */
+        Node randomStartNode = graph.arrayListOfNode.get(0);
 
-    return Integer.parseInt(null);}
+        noVisitNode.addAll(graph.arrayListOfNode);
+        while (!noVisitNode.isEmpty()){
+            Node currentNode = noVisitNode.poll(); //afficher et supprime le premier element
+            acm.add(currentNode);
 
-    /***
-     *
-     * @param
-     * @return
-     */
-    public Path findBestPath(){
-        /*
-        //initialisation
-        int weightTransitionMin = graph.arrayListOfUseNode.get(0).getArrayOfPath(0).getWeight();
-        Path pathMin = graph.arrayListOfUseNode.get(0).getArrayOfPath(0);
+            for(Path path: currentNode.getArrayOfPath()){
+                Node nodeFinal = path.getBegin();
 
-        //on parcourt  tout les nodes de la liste
-        for(int i=0;i < graph.arrayListOfUseNode.size(); i++){
-
-            //on parcourt toutes les transitions de chaque nodes
-            for (int j=0; j < graph.arrayListOfUseNode.get(i).getArrayOfPath().size();j++){
-
-                int transitionCurrent = graph.arrayListOfUseNode.get(i).getArrayOfPath(j).getWeight();
-                //on verifie que la transition n'est pas deja utilisé
-                if(!graph.arrayListOfUseNode.get(i).getArrayOfPath(j).isVariableIsUsed()){
-
-                    //on stock la transition de poids min
-                    if (transitionCurrent < weightTransitionMin){
-                        weightTransitionMin = transitionCurrent;
-                        pathMin = graph.arrayListOfUseNode.get(i).getArrayOfPath(j);
-                        graph.arrayListOfUseNode.get(i).getArrayOfPath(j).setVariableIsUsed(true);
-                    }
+                if (path.getWeight()< nodeFinal.minWeight && noVisitNode.contains(nodeFinal)){
+                    noVisitNode.remove(nodeFinal);
+                    nodeFinal.minWeight = path.getWeight();
+                    noVisitNode.add(nodeFinal);
+                    sommePath = sommePath + path.getWeight();
                 }
             }
         }
-        pathMin.setVariableIsUsed(true);
-        sommePath = sommePath +pathMin.getWeight();
-        return pathMin;
-
-         */
-
-    return null;}
-
-    /**
-     *
-     * @return le poids du chemin actuel
-     */
-    public int getSommePath() {
-        return sommePath;
+        return acm;
     }
 
+        /**
+         *
+         * @return le poids du chemin actuel
+         */
+        public double getSommePath() {
+            return sommePath;
+        }
 
-}
+
+    }
+
