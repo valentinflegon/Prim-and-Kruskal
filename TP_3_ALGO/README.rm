@@ -13,7 +13,7 @@ Nous aurons pour attribut un graph, un tableau de path ainsi qu'un tableau de pa
 ## Classe Kruskal
 L'algorithme de Kruskal est un algorithme de recherche d arbre couvrant minimum (ACM) dans un graphe connexe non-orienté et pondéré. Il a été conçu en 1956 par Joseph Kruskal.
 
-@@ -40,4 +31,12 @@ L'algorithme de Prim est un algorithme glouton qui calcule un arbre couvrant min
+L'algorithme de Prim est un algorithme glouton qui calcule un arbre couvrant min
 
  * methode prim(): Nous allons ajouté le node de départ dans notre liste de node utilisé,  nous recuperons le meilleurs transition sur notre liste de node used et ajoutons son node final a la liste des nodes used. Nous effecturons l'action suivante tant quand la liste de node used et differente a la liste de node.Et retournons la somme des chemins avec getSommePath().
 
