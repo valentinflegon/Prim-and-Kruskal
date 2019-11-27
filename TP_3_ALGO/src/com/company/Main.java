@@ -157,6 +157,7 @@ public class Main {
             case 1:
                 Kruskal kruskal = new Kruskal(graph);
                 kruskal.kruskal();
+                System.out.println("Poids des chemins du graph " +kruskal.getSommePath());
                 kruskal.graph.display();
                 break;
             case 2:
