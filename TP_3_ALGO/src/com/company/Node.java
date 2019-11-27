@@ -9,6 +9,7 @@ public class Node {
     private int x, y;
     static int NEX_ID = 0;
     public int clusterId = NEX_ID++;
+    public double minWeight;
 
 
     public Node(int x, int y) {
