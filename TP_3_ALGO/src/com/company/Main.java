@@ -150,14 +150,14 @@ public class Main {
         switch (choice) {
             case 0:
                 Prim prim = new Prim(graph);
-                System.out.println("Poids des chemins du graph " + prim.prim());
-                // graph.arrayListOfNodeWhereSortPath(graph.arrayListOfNode);
+                prim.prim();
+                System.out.println("TotalWeight : " + prim.getSommePath());
                 prim.graph.display();
                 break;
             case 1:
                 Kruskal kruskal = new Kruskal(graph);
                 kruskal.kruskal();
-                System.out.println("Poids des chemins du graph " +kruskal.getSommePath());
+                System.out.println("TotalWeight : " + kruskal.getSommePath());
                 kruskal.graph.display();
                 break;
             case 2:
@@ -165,7 +165,6 @@ public class Main {
                 System.out.println("TotalWeight : " + primUpgradedVersion.prim());
                 if (firstchoice == 2) {primUpgradedVersion.graph.display3();}
                 else primUpgradedVersion.graph.display2();
-
                 break;
             case 3:
                 UpgradedVersion kruskalUpgradedVersion = new UpgradedVersion(graph);
